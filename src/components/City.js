@@ -1,21 +1,26 @@
 import React from "react";
-// import "./City.css";
 
-export default function City({ data }) {
+export default function City({ city, deleteCity }) {
   return (
     <div className="container">
-      <h1 className="tittle">
-        {data.name}, {data.sys.country}
-      </h1>
+      <div className="entrance">
+        <h1 className="tittle">
+          {city.name}, {city.sys.country}
+        </h1>
+        <button className="deleteBtn" onClick={() => deleteCity(city.id)}>
+          X
+        </button>
+      </div>
+
       <div className="main">
-        <h2>{data.weather[0].main}</h2>
-        <p>{data.weather[0].description}</p>
+        <h2>{city.weather[0].main}</h2>
+        <p>{city.weather[0].description}</p>
       </div>
       <div className="tempLoc">
-        <p>min temp: {Math.floor((data.main.temp_min - 273) * 10) / 10} °C</p>
-        <p>max temp: {Math.floor((data.main.temp_min - 273) * 10) / 10} °C</p>
+        <p>min temp: {Math.floor((city.main.temp_min - 273) * 10) / 10} °C</p>
+        <p>max temp: {Math.floor((city.main.temp_min - 273) * 10) / 10} °C</p>
         <p>
-          location: {data.coord.lon}, {data.coord.lat}
+          location: {city.coord.lon}, {city.coord.lat}
         </p>
       </div>
     </div>

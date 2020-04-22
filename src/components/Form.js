@@ -1,13 +1,13 @@
 import React from "react";
 
-function Form(props) {
+function Form({ onChange, onSubmit }) {
   return (
     <div>
-      <form action="" onSubmit={props.onSubmit}>
+      <form action="" onSubmit={onSubmit}>
         <input
           className="inputCity"
           type="text"
-          onChange={props.onChange}
+          onChange={onChange}
           placeholder="Search City"
         />
 
