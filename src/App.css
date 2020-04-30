@@ -55,4 +55,20 @@ p {
 
 .inputCity {
   padding: 10px;
+  margin-bottom: 40px;
+}
+.graph {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.forecast {
+  color: #121f3b;
+  background-color: #d8d8d8;
+  margin-bottom: 5px;
+  width: 15%;
+  margin: auto;
+  padding: 10px;
+  font-size: 1.2rem;
+  text-decoration: none;
 }

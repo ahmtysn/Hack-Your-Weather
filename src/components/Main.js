@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Form from "./Form";
 import City from "./City";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import CityDetail from "./CityDetail";
 
 export default function Main() {
   const [city, setCity] = useState({});
@@ -19,8 +21,9 @@ export default function Main() {
         if (data.cod === 200) {
           setCity(data);
           setCities([data, ...cities]);
+          setErrMessage(null);
         } else {
-          setErrMessage("The city can not find..");
+          setErrMessage("The city couldn't find..");
         }
       })
       .catch((err) => setErrMessage(err.message))
@@ -35,24 +38,29 @@ export default function Main() {
     fetchWeather(searchText);
   };
   const deleteCity = (id) => {
-    const remainCities = cities.filter((city) => city.id !== id);
-    setCities(remainCities);
+    setCities(cities.filter((city) => city.id !== id));
   };
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  if (errMessage) {
-    return <div>{errMessage}</div>;
-  }
+
   return (
-    <div>
-      <Form onChange={onChange} onSubmit={onSubmit} city={city} />
-      {cities.map((city) => (
-        <div key={city.id}>
-          <City city={city} deleteCity={deleteCity} />
-        </div>
-      ))}
-    </div>
+    <Router>
+      <div>
+        <Form onChange={onChange} onSubmit={onSubmit} city={city} />
+        <Switch>
+          <Route path="/:id">{city.name && <CityDetail city={city} />}</Route>
+          <Route path="/">
+            {cities.map((city) => (
+              <div key={city.id}>
+                <City city={city} deleteCity={deleteCity} />
+              </div>
+            ))}
+            {errMessage && <div>{errMessage}</div>}
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
